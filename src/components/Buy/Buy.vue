@@ -6,13 +6,13 @@
       :to="'/new-ads'">
       <v-icon dark>add</v-icon>
     </v-btn></h1>
-      <div class="elevation-10">
+      <div class="elevation-10" row v-if="!loading">
       <v-card
       v-for="ad in ads"
       :key="ad.id"
       flat
       >
-          <v-layout row>
+          <v-layout>
             <v-flex xs12>
               <v-card-text>
                 <h2 class="text--primary">{{ad.title}}</h2>
@@ -36,15 +36,20 @@
               </v-card-actions>
             </v-flex>
           </v-layout>
+          
           <hr>
       </v-card>
       </div>
+      <app-loader v-else></app-loader>
     </v-flex>
   </v-layout>
+
+  
 </v-container>
 </template>
 
 <script>
+
 export default {
   data () {
     return {
@@ -54,7 +59,13 @@ export default {
   computed: {
     ads () {
       return this.$store.getters.ads
+    },
+    loading () {
+      return this.$store.getters.loading
     }
+  },
+  created () {
+    this.$store.dispatch('fetchAds')
   }
 }
 </script>

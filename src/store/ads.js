@@ -1,36 +1,27 @@
 import * as fb from 'firebase'
 
 class Ad {
-  constructor (title, description, fullDiscription, imgSrc, price) {
+  constructor (title, description, fullDiscription, imgSrc, price, id = null, idOwner = null) {
     this.title = title
     this.description = description
     this.fullDiscription = fullDiscription
     this.imgSrc = imgSrc
     this.price = price
+    this.id = id
+    this.idOwner = idOwner
   }
 }
 
 export default {
   state: {
-    ads: [{
-      title: 'first add',
-      description: 'hello i am disc',
-      fullDiscription: '',
-      imgSrc: 'https://do.29.ru/preview//do/1b3a3a34b2d32b8f39353a8cc36d00a0_1517195445_600_480.jpg',
-      id: '123'
-    },
-    {
-      title: 'twos add',
-      description: 'hello i am disc',
-      fullDiscription: '',
-      imgSrc: 'https://do.29.ru/preview//do/1b3a3a34b2d32b8f39353a8cc36d00a0_1517195445_600_480.jpg',
-      id: '1232'
-    }
-    ]
+    ads: []
   },
   mutations: {
     createAd (state, payload) {
       state.ads.push(payload)
+    },
+    loadAds (state, payload) {
+      state.ads = payload
     }
   },
   actions: {
@@ -51,6 +42,35 @@ export default {
           ...newAd,
           id: ad.key
         })
+        commit('setLoading', false)
+      } catch (error) {
+        commit('setError', error.message)
+        commit('setLoading', false)
+        throw error
+      }
+    },
+    async fetchAds ({commit}) {
+      commit('clearError')
+      commit('setLoading', true)
+      const resultAds = []
+      try {
+        const fbVal = await fb.database().ref('ads').once('value')
+        const ads = fbVal.val()
+        console.log(ads)
+        Object.keys(ads).forEach(key => {
+          const ad = ads[key]
+          resultAds.push(
+            new Ad(
+              ad.title,
+              ad.description,
+              ad.fullDiscription,
+              ad.imgSrc,
+              ad.price,
+              key
+            )
+          )
+        })
+        commit('loadAds', resultAds)
         commit('setLoading', false)
       } catch (error) {
         commit('setError', error.message)

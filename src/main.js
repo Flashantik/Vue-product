@@ -9,6 +9,10 @@ import * as fb from 'firebase'        /// Инициализация firebase
 
 import '../css/style.css'
 
+import AppLoader from './components/loader.vue'
+
+Vue.component('appLoader', AppLoader)
+
 Vue.use(Vuetify)
 let app
 Vue.config.productionTip = false
@@ -21,6 +25,7 @@ fb.initializeApp({
   messagingSenderId: '93938858993'
 })
 /* eslint-disable no-new */
+
 fb.auth().onAuthStateChanged(user => {
   if (!app) {
     new Vue({
