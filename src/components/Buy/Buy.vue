@@ -10,29 +10,19 @@
       <v-card
       v-for="ad in ads"
       :key="ad.id"
-      flat
+      flat 
+      class="card"
       >
           <v-layout>
             <v-flex xs12>
               <v-card-text>
-                <h2 class="text--primary">{{ad.title}}</h2>
+                <h2 class="text--primary">{{ad.title}} <span class="price"> ${{ad.price}} </span></h2>
                 <p>{{ad.description}}</p>
               </v-card-text>
               <v-card-actions class="borderbtm">
                 <v-spacer></v-spacer> 
-                <v-dialog class="notfull" v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-                 <v-btn slot="activator" class="success" :to="'/buy/'+ ad.id">Открыть</v-btn>
-                  <v-card dark>
-                    <v-toolbar light>
-                      <v-btn icon light @click.native="dialog = false">
-                        <v-icon>close</v-icon>
-                      </v-btn>
-                      <v-toolbar-title>{{ad.title}}</v-toolbar-title>
-                    </v-toolbar>
-                    {{ad.description}}
-                  </v-card>
-                </v-dialog>  
-                <v-btn></v-btn>
+                 <v-btn class="success" :to="'/buy/'+ ad.id">Открыть</v-btn>
+           
               </v-card-actions>
             </v-flex>
           </v-layout>
@@ -63,9 +53,6 @@ export default {
     loading () {
       return this.$store.getters.loading
     }
-  },
-  created () {
-    this.$store.dispatch('fetchAds')
   }
 }
 </script>
@@ -75,4 +62,17 @@ export default {
   justify-content:space-between;
 }
 
+.price{
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: red;
+  opacity: 0;
+}
+span {
+    transition: all .5s ease;
+}
+.card:hover h2>span {
+opacity: 1;
+}
 </style>

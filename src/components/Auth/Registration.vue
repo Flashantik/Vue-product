@@ -13,13 +13,11 @@
                   :rules="emailRules"></v-text-field>
                   <v-text-field id="password" prepend-icon="lock" name="password" label="Пароль" type="password"
                   v-model="password"
-                  
                   :counter="14"
                   :rules="passwordRules"
                   ></v-text-field>
                   <v-text-field id="confirmPassword" prepend-icon="lock" name="password" label="Подтвердите пароль" type="password"
                   v-model="confirmPassword"
-                  
                   :counter="14"
                   :rules="confirmPasswordRules"
                   ></v-text-field>
@@ -38,7 +36,6 @@
         </v-layout>
       </v-container>
 </template>
-
 <script>
 export default {
   data () {
@@ -71,10 +68,9 @@ export default {
           email: this.email,
           password: this.password
         }
-
         this.$store.dispatch('registerUser', user)
         .then(() => {
-          this.$router.push('/')
+          this.$router.push(this.$route.fullPath + '/other')
         })
         .catch(() => {})
       }

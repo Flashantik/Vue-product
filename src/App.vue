@@ -84,7 +84,6 @@
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
-      <v-icon></v-icon>
       <router-view></router-view>
     </v-content>
      
@@ -114,6 +113,7 @@
       </v-btn>
     </v-snackbar>
     </template>
+    {{userdata}}
     <v-footer height="auto">
       <v-card
       flat
@@ -166,7 +166,7 @@
       items  () {
         if (this.userlogged) {
           return [
-            { title: 'Домой', icon: 'dashboard', url: '/' },
+          { title: 'Домой', icon: 'dashboard', url: '/' },
           { title: 'Купить', icon: 'monetization_on', url: '/buy' },
           { title: 'Заказать', icon: 'shopping_cart', url: '/order' }
           ]
@@ -176,6 +176,9 @@
           { title: 'Заказать', icon: 'shopping_cart', url: '/order' },
           { title: 'Зарегистрироваться', icon: 'face', url: '/registration' },
           { title: 'Войти', icon: 'lock', url: '/login' }]
+      },
+      userdata () {
+        return this.$store.getters.userOpt
       }
     },
     methods: {

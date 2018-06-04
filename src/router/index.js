@@ -8,6 +8,8 @@ import AppBuy from '../components/Buy/Buy.vue'
 // import AppOrder from '../components/Order/Order.vue'
 import AppAdsAdd from '../components/Buy/ads-add.vue'
 import AppAd from '../components/Buy/ad.vue'
+import RegAnoth from '../components/Auth/RegistrationAnother.vue'
+import AppError from '../components/error.vue'
 
 Vue.use(Router)
 
@@ -26,6 +28,11 @@ export default new Router({
     path: '/Registration',
     name: 'Registration',
     component: AppRegistration
+  },
+  {
+    path: '/Registration/other',
+    name: 'RegistrationAnother',
+    component: RegAnoth
   },
   {
     path: '/Buy',
@@ -49,6 +56,12 @@ export default new Router({
     name: 'Appad',
     props: true,
     component: AppAd
-  }],
+  },
+  {
+    path: '/*',
+    name: 'error',
+    component: AppError
+  }
+  ],
   mode: 'history'
 })

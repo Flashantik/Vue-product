@@ -19,17 +19,4 @@ textarea{
   overflow: hidden;
 }
 
-.dialog{
-  height: calc(100vh - 56px);
-  top: auto;
-  bottom: 0;
-  background-color: red;
-}
 
-@media screen and (width-min:960) {
-  .dialog{height: calc(100vh - 56px);}
-}
-
-@media screen and (width-max:960) {
-  .dialog{height: calc(100vh - 64px);}
-}

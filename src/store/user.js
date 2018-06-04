@@ -1,10 +1,22 @@
-import * as firebase from 'firebase'
+import * as fb from 'firebase'
 
 class User {
   constructor (id) {
     this.id = id
   }
 }
+
+class UserOptions {
+  constructor (nickName = '', DOB = '', skills = [''], avatarSrc = '', balans = '', ads = []) {
+    this.nickName = nickName
+    this.DOB = DOB
+    this.skills = skills
+    this.avatarSrc = avatarSrc
+    this.balans = balans
+    this.ads = ads
+  }
+}
+
 export default {
   state: {
     user: null
@@ -12,6 +24,9 @@ export default {
   mutations: {
     setUser (state, payload) {
       state.user = payload
+    },
+    createUser (state, payload) {
+      state.UserOptions = payload
     }
   },
   actions: {
@@ -19,12 +34,40 @@ export default {
       commit('clearError')
       commit('setLoading', true)
       try {
-        const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
+        const user = await fb.auth().createUserWithEmailAndPassword(email, password)
         commit('setUser', new User(user.uid))
+
         commit('setLoading', false)
       } catch (error) {
         commit('setLoading', false)
         commit('setError', error.message)
+        throw error
+      }
+    },
+    async fetchUserOpt ({commit}) {
+      commit('clearError')
+      commit('setLoading', true)
+      const resultUserOpt = []
+      try {
+        const fbVal = await fb.database().ref('users').once('value')
+        const userOpt = fbVal.val()
+        Object.keys(userOpt).forEach(key => {
+          const user = userOpt[key]
+          resultUserOpt.push(
+              new UserOptions(
+              user.nickName,
+              user.DOB,
+              user.balans,
+              user.avatarSrc,
+              user.ads
+             )
+          )
+        })
+        commit('createUser', resultUserOpt)
+        commit('setLoading', false)
+      } catch (error) {
+        commit('setError', error.message)
+        commit('setLoading', false)
         throw error
       }
     },
@@ -32,7 +75,7 @@ export default {
       commit('clearError')
       commit('setLoading', true)
       try {
-        const user = await firebase.auth().signInWithEmailAndPassword(email, password)
+        const user = await fb.auth().signInWithEmailAndPassword(email, password)
         commit('setUser', new User(user.uid))
         commit('setLoading', false)
       } catch (error) {
@@ -41,15 +84,6 @@ export default {
         throw error
       }
     },
-/*
-    ###    ##     ## ########  #######  ##        #######   ######   #### ##    ##
-   ## ##   ##     ##    ##    ##     ## ##       ##     ## ##    ##   ##  ###   ##
-  ##   ##  ##     ##    ##    ##     ## ##       ##     ## ##         ##  ####  ##
- ##     ## ##     ##    ##    ##     ## ##       ##     ## ##   ####  ##  ## ## ##
- ######### ##     ##    ##    ##     ## ##       ##     ## ##    ##   ##  ##  ####
- ##     ## ##     ##    ##    ##     ## ##       ##     ## ##    ##   ##  ##   ###
- ##     ##  #######     ##     #######  ########  #######   ######   #### ##    ##
-*/
     async autoLoginUser ({commit}, payload) {
       commit('setLoading', true)
       try {
@@ -62,7 +96,7 @@ export default {
       }
     },
     logout ({commit}) {
-      firebase.auth().signOut()
+      fb.auth().signOut()
       commit('setUser', null)
     }
   },
@@ -72,6 +106,9 @@ export default {
     },
     userlogged (state) {
       return state.user !== null
+    },
+    userOpt (state) {
+      return state.userOpt
     }
   }
 }
