@@ -13,7 +13,7 @@
       flat 
       class="card"
       >
-          <v-layout>
+          <v-layout> 
             <v-flex xs12>
               <v-card-text>
                 <h2 class="text--primary">{{ad.title}} <span class="price"> ${{ad.price}} </span></h2>
@@ -34,7 +34,6 @@
     </v-flex>
   </v-layout>
 
-  
 </v-container>
 </template>
 

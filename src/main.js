@@ -37,8 +37,8 @@ fb.auth().onAuthStateChanged(user => {
       created () {
         if (user) {
           this.$store.dispatch('autoLoginUser', user)
+          this.$store.dispatch('fetchAds')
         }
-        this.$store.dispatch('fetchAds')
       }
     })
   }

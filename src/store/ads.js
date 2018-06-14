@@ -38,7 +38,7 @@ export default {
           getters.user.id
         )
 
-        const ad = await fb.database().ref('ads').push(newAd)             // Подключение к бд у firebase которая будет иметь таблицу ads
+        const ad = await fb.database().ref('ads').push(newAd)                   // Подключение к бд у firebase которая будет иметь таблицу ads
         const imgExt = image.name.slice(image.name.lastIndexOf('.'))
 
         const fileData = await fb.storage().ref(`ads/${ad.key}${imgExt}`).put(image)

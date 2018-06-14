@@ -14,24 +14,23 @@
   <p>Page not found</p>
   <div class="buttons-con">
     <div class="action-link-wrap">
-      <a class="link-button link-back-button" :to="nazad">Назад</a>
-      <a class="link-button" :to='/'>Вернуться на главную страницу</a>
+      <a class="link-button link-back-button" @click="nazad">Назад</a>
+      <!-- <a class="link-button" :to='/'>Вернуться   на главную страницу</a> -->
     </div>
   </div>
 </div>
 </div>
 </template>
-
 <script>
 export default{
-methods: {
-  
-}
+  methods: {
+    nazad () {
+      this.$router.push('../')
+    }
+  }
 }
 </script>
 <style scoped>
-
-
 body {
   background-color: #2F3242;
 }
@@ -78,7 +77,6 @@ svg {
   background: #5A5C6C;
   color: #fff;
 }
-
 #Polygon-1 , #Polygon-2 , #Polygon-3 , #Polygon-4 , #Polygon-4, #Polygon-5 {
   animation: float 1s infinite ease-in-out alternate;
 }
@@ -94,7 +92,6 @@ svg {
 #Polygon-5 {
   animation-delay: .8s; 
 }
-
 @keyframes float {
 	100% {
     transform: translateY(20px);

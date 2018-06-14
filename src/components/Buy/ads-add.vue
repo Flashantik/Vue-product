@@ -70,7 +70,6 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <img :src="imageSrc" v-if="imageSrc">
   </v-container>
 </template>
 

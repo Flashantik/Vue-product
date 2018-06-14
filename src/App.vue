@@ -84,7 +84,21 @@
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
-      <router-view></router-view>
+     
+<!-- /*
+ 
+             ########   #######  ##     ## ######## ######## ########  
+             ##     ## ##     ## ##     ##    ##    ##       ##     ## 
+             ##     ## ##     ## ##     ##    ##    ##       ##     ## 
+             ########  ##     ## ##     ##    ##    ######   ########  
+             ##   ##   ##     ## ##     ##    ##    ##       ##   ##   
+             ##    ##  ##     ## ##     ##    ##    ##       ##    ##  
+             ##     ##  #######   #######     ##    ######## ##     ## 
+                            |
+                            ↓  */ -->
+     <router-view></router-view>    
+    
+    
     </v-content>
      
 <!-- /*
@@ -98,7 +112,6 @@
                    ######## ##     ## ##     ##  #######  ##     ## 
  
 */ -->
-
       <template v-if="error">
       <v-snackbar
       :timeout="5000"
@@ -118,7 +131,7 @@
       <v-card
       flat
       tile
-      class="text-xs-center"
+      class="text-xs-center footer"
       dark
     >
       <v-card-text>
@@ -131,16 +144,12 @@
           <v-icon size="24px">{{ val }}</v-icon>
         </v-btn>
       </v-card-text>
-      <v-card-text class="white--text pt-0">
-        Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-      </v-card-text>
+      <v-card-text class="white--text pt-0">Сайт разработан с применением современных техгологий таких как Vue и MongoDb</v-card-text>
       <v-card-text class="white--text">
-        &copy;2018 — <strong>Vuetify</strong>
+        &copy;2018 — <strong>/Flashantik</strong>
       </v-card-text>
     </v-card>
     </v-footer>
-  
-  
   </v-app>
 </template>
 <script>
@@ -194,6 +203,9 @@
 </script>
 
 <style scoped>
+.footer{
+ min-width: 100vw; 
+}
 .pointer{
   cursor: pointer;
 }

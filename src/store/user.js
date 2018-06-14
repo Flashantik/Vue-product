@@ -35,6 +35,19 @@ export default {
       commit('setLoading', true)
       try {
         const user = await fb.auth().createUserWithEmailAndPassword(email, password)
+        fb.auth().sendSignInLinkToEmail(email, {
+          url: 'https://www.example.com/finishSignUp?cartId=1234',
+          // This must be true.
+          handleCodeInApp: true,
+          iOS: {
+            bundleId: 'com.example.ios'
+          },
+          android: {
+            packageName: 'com.example.android',
+            installApp: true,
+            minimumVersion: '12'
+          }
+        })
         commit('setUser', new User(user.uid))
 
         commit('setLoading', false)
